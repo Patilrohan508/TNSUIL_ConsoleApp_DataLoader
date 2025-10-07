@@ -17,6 +17,7 @@ namespace TNSUIL_ConsoleApp_DataLoader.Migrations
         {
 #pragma warning disable 612, 618
             modelBuilder
+                .HasDefaultSchema("public")
                 .HasAnnotation("ProductVersion", "9.0.6")
                 .HasAnnotation("Relational:MaxIdentifierLength", 63);
 
@@ -104,7 +105,7 @@ namespace TNSUIL_ConsoleApp_DataLoader.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("atmospheric_pressure", (string)null);
+                    b.ToTable("atmospheric_pressure", "public");
                 });
 
             modelBuilder.Entity("TNSUIL_ConsoleApp_DataLoader.Models.EvapoTranspiration", b =>
@@ -189,7 +190,7 @@ namespace TNSUIL_ConsoleApp_DataLoader.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("evapo_transpiration", (string)null);
+                    b.ToTable("evapo_transpiration", "public");
                 });
 
             modelBuilder.Entity("TNSUIL_ConsoleApp_DataLoader.Models.GroundWaterLevel", b =>
@@ -275,7 +276,7 @@ namespace TNSUIL_ConsoleApp_DataLoader.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("ground_water_level", (string)null);
+                    b.ToTable("ground_water_level", "public");
                 });
 
             modelBuilder.Entity("TNSUIL_ConsoleApp_DataLoader.Models.RainFall", b =>
@@ -360,7 +361,7 @@ namespace TNSUIL_ConsoleApp_DataLoader.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("rainfall", (string)null);
+                    b.ToTable("rainfall", "public");
                 });
 
             modelBuilder.Entity("TNSUIL_ConsoleApp_DataLoader.Models.RelativeHumidity", b =>
@@ -445,7 +446,7 @@ namespace TNSUIL_ConsoleApp_DataLoader.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("relative_humidity", (string)null);
+                    b.ToTable("relative_humidity", "public");
                 });
 
             modelBuilder.Entity("TNSUIL_ConsoleApp_DataLoader.Models.Reservoir", b =>
@@ -530,7 +531,7 @@ namespace TNSUIL_ConsoleApp_DataLoader.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("reservoirs", (string)null);
+                    b.ToTable("reservoirs", "public");
                 });
 
             modelBuilder.Entity("TNSUIL_ConsoleApp_DataLoader.Models.RiverWaterDischarge", b =>
@@ -615,7 +616,7 @@ namespace TNSUIL_ConsoleApp_DataLoader.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("river_water_discharge", (string)null);
+                    b.ToTable("river_water_discharge", "public");
                 });
 
             modelBuilder.Entity("TNSUIL_ConsoleApp_DataLoader.Models.RiverWaterLevel", b =>
@@ -700,7 +701,7 @@ namespace TNSUIL_ConsoleApp_DataLoader.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("river_water_level", (string)null);
+                    b.ToTable("river_water_level", "public");
                 });
 
             modelBuilder.Entity("TNSUIL_ConsoleApp_DataLoader.Models.SoilMoisture", b =>
@@ -785,7 +786,7 @@ namespace TNSUIL_ConsoleApp_DataLoader.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("soil_moisture", (string)null);
+                    b.ToTable("soil_moisture", "public");
                 });
 
             modelBuilder.Entity("TNSUIL_ConsoleApp_DataLoader.Models.SolarRadiation", b =>
@@ -870,7 +871,7 @@ namespace TNSUIL_ConsoleApp_DataLoader.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("solar_radiation", (string)null);
+                    b.ToTable("solar_radiation", "public");
                 });
 
             modelBuilder.Entity("TNSUIL_ConsoleApp_DataLoader.Models.Suspended_Sediment", b =>
@@ -955,7 +956,7 @@ namespace TNSUIL_ConsoleApp_DataLoader.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("suspended_sediment", (string)null);
+                    b.ToTable("suspended_sediment", "public");
                 });
 
             modelBuilder.Entity("TNSUIL_ConsoleApp_DataLoader.Models.TblStations", b =>
@@ -994,7 +995,7 @@ namespace TNSUIL_ConsoleApp_DataLoader.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("tblstations", (string)null);
+                    b.ToTable("tblstations", "public");
                 });
 
             modelBuilder.Entity("TNSUIL_ConsoleApp_DataLoader.Models.Temperature", b =>
@@ -1079,7 +1080,7 @@ namespace TNSUIL_ConsoleApp_DataLoader.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("temperature", (string)null);
+                    b.ToTable("temperature", "public");
                 });
 
             modelBuilder.Entity("TNSUIL_ConsoleApp_DataLoader.Models.WindDirection", b =>
@@ -1164,7 +1165,7 @@ namespace TNSUIL_ConsoleApp_DataLoader.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("wind_direction", (string)null);
+                    b.ToTable("wind_direction", "public");
                 });
 #pragma warning restore 612, 618
         }

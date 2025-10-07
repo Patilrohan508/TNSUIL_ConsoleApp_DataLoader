@@ -5,6 +5,7 @@ using System.Text;
 using System.Text.Json;
 using System.Threading.Tasks;
 using TNSUIL_ConsoleApp_DataLoader.DLL;
+using TNSUIL_ConsoleApp_DataLoader.DTOs;
 using static System.Collections.Specialized.BitVector32;
 
 namespace TNSUIL_ConsoleApp_DataLoader.BLL
@@ -38,7 +39,7 @@ namespace TNSUIL_ConsoleApp_DataLoader.BLL
                     return $"Deserialization resulted in null for {utility} {district} ";
                 }
 
-                var result = dll.Atmospheric_Pressure(stationWrapper.Data, utility,district);
+                var result = await dll.Atmospheric_Pressure(stationWrapper.Data, utility,district);
 
                 return result;
             }
@@ -68,7 +69,7 @@ namespace TNSUIL_ConsoleApp_DataLoader.BLL
                     return $"Deserialization resulted in null for {utility} {district} ";
                 }
 
-                var result = dll.Evapo_Transpiration(stationWrapper.Data, utility, district);
+                var result = await dll.Evapo_Transpiration(stationWrapper.Data, utility, district);
 
                 return result;
             }
@@ -98,7 +99,7 @@ namespace TNSUIL_ConsoleApp_DataLoader.BLL
                     return $"Deserialization resulted in null for {utility} {district} ";
                 }
 
-                var result =  dll.Ground_Water_Level(stationWrapper.Data, utility, district);
+                var result = await  dll.Ground_Water_Level(stationWrapper.Data, utility, district);
 
                 return result;
             }
@@ -128,7 +129,7 @@ namespace TNSUIL_ConsoleApp_DataLoader.BLL
                     return $"Deserialization resulted in null for {utility} {district} ";
                 }
 
-                var result = dll.RainFall(stationWrapper.Data, utility, district);
+                var result = await dll.RainFall(stationWrapper.Data, utility, district);
 
                 return result;
             }
@@ -158,7 +159,7 @@ namespace TNSUIL_ConsoleApp_DataLoader.BLL
                     return $"Deserialization resulted in null for {utility} {district} ";
                 }
 
-                var result = dll.Relative_Humidity(stationWrapper.Data, utility, district);
+                var result = await dll.Relative_Humidity(stationWrapper.Data, utility, district);
 
                 return result;
             }
@@ -188,7 +189,7 @@ namespace TNSUIL_ConsoleApp_DataLoader.BLL
                     return $"Deserialization resulted in null for {utility} {district} ";
                 }
 
-                var result = dll.Reservoir(stationWrapper.Data, utility, district);
+                var result = await dll.Reservoir(stationWrapper.Data, utility, district);
 
                 return result;
             }
@@ -218,7 +219,7 @@ namespace TNSUIL_ConsoleApp_DataLoader.BLL
                     return $"Deserialization resulted in null for {utility} {district} ";
                 }
 
-                var result = dll.River_Water_Discharge(stationWrapper.Data, utility, district);
+                var result = await dll.River_Water_Discharge(stationWrapper.Data, utility, district);
 
                 return result;
             }
@@ -249,7 +250,7 @@ namespace TNSUIL_ConsoleApp_DataLoader.BLL
                     return $"Deserialization resulted in null for {utility} {district} ";
                 }
 
-                var result = dll.River_Water_Level(stationWrapper.Data, utility, district);
+                var result = await dll.River_Water_Level(stationWrapper.Data, utility, district);
 
                 return result;
             }
@@ -279,7 +280,7 @@ namespace TNSUIL_ConsoleApp_DataLoader.BLL
                     return $"Deserialization resulted in null for {utility} {district} ";
                 }
 
-                var result = dll.Soil_Moisture(stationWrapper.Data, utility, district);
+                var result = await dll.Soil_Moisture(stationWrapper.Data, utility, district);
 
                 return result;
             }
@@ -309,7 +310,7 @@ namespace TNSUIL_ConsoleApp_DataLoader.BLL
                     return $"Deserialization resulted in null for {utility} {district} ";
                 }
 
-                var result = dll.Solar_Radiation(stationWrapper.Data, utility, district);
+                var result = await dll.Solar_Radiation(stationWrapper.Data, utility, district);
 
                 return result;
             }
@@ -339,7 +340,7 @@ namespace TNSUIL_ConsoleApp_DataLoader.BLL
                     return $"Deserialization resulted in null for {utility} {district} ";
                 }
 
-                var result = dll.Suspended_Sediment(stationWrapper.Data, utility, district);
+                var result = await dll.Suspended_Sediment(stationWrapper.Data, utility, district);
 
                 return result;
             }
@@ -350,28 +351,50 @@ namespace TNSUIL_ConsoleApp_DataLoader.BLL
             }
         }
 
-        public async Task<string> Temperature(string url, string utility, string district)
+        public async Task<string> Temperature(StationRequest requestObj)
         {
             try
             {
-                var response = await _httpClient.PostAsync(url, new StringContent(string.Empty));
-                response.EnsureSuccessStatusCode(); // Throw if not success  
 
-                string responseBody = await response.Content.ReadAsStringAsync();
-                var options = new JsonSerializerOptions
+                var body = new Dictionary<string, string>
                 {
-                    PropertyNameCaseInsensitive = true
+                    ["station_code"] = requestObj.StationId,
+                    ["starttime"] = requestObj.StartDate,
+                    ["endtime"] = requestObj.EndDate,
+                    ["dataset"] = "MT_TEMP",
                 };
 
-                ApiResponse<MappingModel>? stationWrapper = JsonSerializer.Deserialize<ApiResponse<MappingModel>>(responseBody, options);
-                if (stationWrapper?.Data == null)
+                string json = JsonSerializer.Serialize(body);
+                var content = new StringContent(json, Encoding.UTF8, "application/json");
+                var response = await _httpClient.PostAsync("https://indiawris.gov.in/CommonDataSetMasterAPI/getCommonDataSetByStationCode", content);
+
+                if (response.IsSuccessStatusCode)
                 {
-                    return $"Deserialization resulted in null for {utility} {district} ";
+
+                    string responseBody = await response.Content.ReadAsStringAsync();
+                    var options = new JsonSerializerOptions
+                    {
+                        PropertyNameCaseInsensitive = true
+                    };
+
+                    TempMap stationWrapper = JsonSerializer.Deserialize<TempMap>(responseBody, options);
+                    if (stationWrapper?.data == null)
+                    {
+                        return $"Deserialization resulted in null for {requestObj.StationId} {requestObj.StartDate} {requestObj.EndDate}";
+                    }
+
+                    var result = await dll.Temperature(stationWrapper.data, requestObj.StationId, requestObj.District);
+
+                    return "";
+
                 }
 
-                var result = dll.Temperature(stationWrapper.Data, utility, district);
+                return "";
 
-                return result;
+                //var response = await _httpClient.PostAsync(url, new StringContent(string.Empty));
+                //response.EnsureSuccessStatusCode(); // Throw if not success  
+                //return StatusCode((int)response.StatusCode, await response.Content.ReadAsStringAsync());
+
             }
             catch (Exception ex)
             {
@@ -399,7 +422,7 @@ namespace TNSUIL_ConsoleApp_DataLoader.BLL
                     return $"Deserialization resulted in null for {utility} {district} ";
                 }
 
-                var result = dll.Wind_Direction(stationWrapper.Data, utility, district);
+                var result = await dll.Wind_Direction(stationWrapper.Data, utility, district);
 
                 return result;
             }

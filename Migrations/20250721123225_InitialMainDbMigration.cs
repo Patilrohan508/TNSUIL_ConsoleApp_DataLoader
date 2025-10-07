@@ -7,13 +7,17 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace TNSUIL_ConsoleApp_DataLoader.Migrations
 {
     /// <inheritdoc />
-    public partial class InitialCreate : Migration
+    public partial class InitialMainDbMigration : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
         {
+            migrationBuilder.EnsureSchema(
+                name: "public");
+
             migrationBuilder.CreateTable(
-                name: "AtmosphericPressures",
+                name: "atmospheric_pressure",
+                schema: "public",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "integer", nullable: false)
@@ -44,11 +48,12 @@ namespace TNSUIL_ConsoleApp_DataLoader.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_AtmosphericPressures", x => x.Id);
+                    table.PrimaryKey("PK_atmospheric_pressure", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
-                name: "EvapoTranspirations",
+                name: "evapo_transpiration",
+                schema: "public",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "integer", nullable: false)
@@ -79,14 +84,16 @@ namespace TNSUIL_ConsoleApp_DataLoader.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_EvapoTranspirations", x => x.Id);
+                    table.PrimaryKey("PK_evapo_transpiration", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
-                name: "GroundWaterLevels",
+                name: "ground_water_level",
+                schema: "public",
                 columns: table => new
                 {
-                    Id = table.Column<string>(type: "text", nullable: false),
+                    Id = table.Column<int>(type: "integer", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
                     StationCode = table.Column<string>(type: "text", nullable: false),
                     StationName = table.Column<string>(type: "text", nullable: false),
                     StationType = table.Column<string>(type: "text", nullable: false),
@@ -113,11 +120,12 @@ namespace TNSUIL_ConsoleApp_DataLoader.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_GroundWaterLevels", x => x.Id);
+                    table.PrimaryKey("PK_ground_water_level", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
-                name: "RainFalls",
+                name: "rainfall",
+                schema: "public",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "integer", nullable: false)
@@ -148,11 +156,12 @@ namespace TNSUIL_ConsoleApp_DataLoader.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_RainFalls", x => x.Id);
+                    table.PrimaryKey("PK_rainfall", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
-                name: "RelativeHumidities",
+                name: "relative_humidity",
+                schema: "public",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "integer", nullable: false)
@@ -183,11 +192,12 @@ namespace TNSUIL_ConsoleApp_DataLoader.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_RelativeHumidities", x => x.Id);
+                    table.PrimaryKey("PK_relative_humidity", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
-                name: "Reservoirs",
+                name: "reservoirs",
+                schema: "public",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "integer", nullable: false)
@@ -218,11 +228,12 @@ namespace TNSUIL_ConsoleApp_DataLoader.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Reservoirs", x => x.Id);
+                    table.PrimaryKey("PK_reservoirs", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
-                name: "RiverWaterDischarges",
+                name: "river_water_discharge",
+                schema: "public",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "integer", nullable: false)
@@ -253,11 +264,12 @@ namespace TNSUIL_ConsoleApp_DataLoader.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_RiverWaterDischarges", x => x.Id);
+                    table.PrimaryKey("PK_river_water_discharge", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
-                name: "RiverWaterLevels",
+                name: "river_water_level",
+                schema: "public",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "integer", nullable: false)
@@ -288,11 +300,12 @@ namespace TNSUIL_ConsoleApp_DataLoader.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_RiverWaterLevels", x => x.Id);
+                    table.PrimaryKey("PK_river_water_level", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
-                name: "SoilMoistures",
+                name: "soil_moisture",
+                schema: "public",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "integer", nullable: false)
@@ -323,11 +336,12 @@ namespace TNSUIL_ConsoleApp_DataLoader.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_SoilMoistures", x => x.Id);
+                    table.PrimaryKey("PK_soil_moisture", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
-                name: "SolarRadiations",
+                name: "solar_radiation",
+                schema: "public",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "integer", nullable: false)
@@ -358,11 +372,12 @@ namespace TNSUIL_ConsoleApp_DataLoader.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_SolarRadiations", x => x.Id);
+                    table.PrimaryKey("PK_solar_radiation", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
-                name: "Suspended_Sediments",
+                name: "suspended_sediment",
+                schema: "public",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "integer", nullable: false)
@@ -393,11 +408,12 @@ namespace TNSUIL_ConsoleApp_DataLoader.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Suspended_Sediments", x => x.Id);
+                    table.PrimaryKey("PK_suspended_sediment", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
-                name: "TblStations",
+                name: "tblstations",
+                schema: "public",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "integer", nullable: false)
@@ -406,19 +422,18 @@ namespace TNSUIL_ConsoleApp_DataLoader.Migrations
                     Agency = table.Column<string>(type: "text", nullable: false),
                     Utility = table.Column<string>(type: "text", nullable: false),
                     StateName = table.Column<string>(type: "text", nullable: false),
-                    DistrictName = table.Column<string>(type: "text", nullable: false),
-                    AgencyName = table.Column<string>(type: "text", nullable: false),
-                    download = table.Column<bool>(type: "boolean", nullable: false),
+                    download = table.Column<string>(type: "text", nullable: false),
                     page = table.Column<int>(type: "integer", nullable: false),
                     size = table.Column<int>(type: "integer", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_TblStations", x => x.Id);
+                    table.PrimaryKey("PK_tblstations", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
-                name: "Temperatures",
+                name: "temperature",
+                schema: "public",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "integer", nullable: false)
@@ -449,11 +464,12 @@ namespace TNSUIL_ConsoleApp_DataLoader.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Temperatures", x => x.Id);
+                    table.PrimaryKey("PK_temperature", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
-                name: "windDirections",
+                name: "wind_direction",
+                schema: "public",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "integer", nullable: false)
@@ -484,7 +500,7 @@ namespace TNSUIL_ConsoleApp_DataLoader.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_windDirections", x => x.Id);
+                    table.PrimaryKey("PK_wind_direction", x => x.Id);
                 });
         }
 
@@ -492,46 +508,60 @@ namespace TNSUIL_ConsoleApp_DataLoader.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "AtmosphericPressures");
+                name: "atmospheric_pressure",
+                schema: "public");
 
             migrationBuilder.DropTable(
-                name: "EvapoTranspirations");
+                name: "evapo_transpiration",
+                schema: "public");
 
             migrationBuilder.DropTable(
-                name: "GroundWaterLevels");
+                name: "ground_water_level",
+                schema: "public");
 
             migrationBuilder.DropTable(
-                name: "RainFalls");
+                name: "rainfall",
+                schema: "public");
 
             migrationBuilder.DropTable(
-                name: "RelativeHumidities");
+                name: "relative_humidity",
+                schema: "public");
 
             migrationBuilder.DropTable(
-                name: "Reservoirs");
+                name: "reservoirs",
+                schema: "public");
 
             migrationBuilder.DropTable(
-                name: "RiverWaterDischarges");
+                name: "river_water_discharge",
+                schema: "public");
 
             migrationBuilder.DropTable(
-                name: "RiverWaterLevels");
+                name: "river_water_level",
+                schema: "public");
 
             migrationBuilder.DropTable(
-                name: "SoilMoistures");
+                name: "soil_moisture",
+                schema: "public");
 
             migrationBuilder.DropTable(
-                name: "SolarRadiations");
+                name: "solar_radiation",
+                schema: "public");
 
             migrationBuilder.DropTable(
-                name: "Suspended_Sediments");
+                name: "suspended_sediment",
+                schema: "public");
 
             migrationBuilder.DropTable(
-                name: "TblStations");
+                name: "tblstations",
+                schema: "public");
 
             migrationBuilder.DropTable(
-                name: "Temperatures");
+                name: "temperature",
+                schema: "public");
 
             migrationBuilder.DropTable(
-                name: "windDirections");
+                name: "wind_direction",
+                schema: "public");
         }
     }
 }

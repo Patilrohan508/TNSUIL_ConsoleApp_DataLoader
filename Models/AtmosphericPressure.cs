@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -8,6 +9,7 @@ using System.Threading.Tasks;
 namespace TNSUIL_ConsoleApp_DataLoader.Models
 {
     //["tblatmospheric_pressure"]
+    //[Table("atmospheric_pressure", Schema = "public")]
     public class AtmosphericPressure
     {
         public int Id { get; set; }

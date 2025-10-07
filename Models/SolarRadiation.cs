@@ -1,11 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace TNSUIL_ConsoleApp_DataLoader.Models
 {
+    //[Table("solar_radiation", Schema = "public")]
+
     public class SolarRadiation
     {
         public int Id { get; set; }

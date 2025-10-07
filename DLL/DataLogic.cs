@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using AutoMapper;
 using TNSUIL_ConsoleApp_DataLoader.DBContextClass;
+using TNSUIL_ConsoleApp_DataLoader.DTOs;
 using TNSUIL_ConsoleApp_DataLoader.Models;
 //using EFCore.BulkExtensions;
 
@@ -23,7 +24,7 @@ namespace TNSUIL_ConsoleApp_DataLoader.DLL
 
         }
 
-        public string Atmospheric_Pressure(List<MappingModel> model, string utility, string district)
+        public async Task<string> Atmospheric_Pressure(List<MappingModel> model, string utility, string district)
         {
             try
             {
@@ -34,7 +35,8 @@ namespace TNSUIL_ConsoleApp_DataLoader.DLL
 
                 var mapped = _mapper.Map<List<AtmosphericPressure>>(model);
 
-                _context.BulkInsert(mapped); // Wrap BulkInsert in Task.Run for async execution.  
+                await _context.AddRangeAsync(mapped);
+                await _context.SaveChangesAsync();
 
                 //await _context.AtmosphericPressures.AddRangeAsync(mapped).ConfigureAwait(false);
                 //await _context.SaveChangesAsync().ConfigureAwait(false);
@@ -49,7 +51,7 @@ namespace TNSUIL_ConsoleApp_DataLoader.DLL
 
         }
 
-        public string Evapo_Transpiration(List<MappingModel> model, string utility, string district)
+        public async Task<string> Evapo_Transpiration(List<MappingModel> model, string utility, string district)
         {
             try
             {
@@ -59,7 +61,8 @@ namespace TNSUIL_ConsoleApp_DataLoader.DLL
                 }
 
                 var mapped = _mapper.Map<List<EvapoTranspiration>>(model);
-                _context.BulkInsert(mapped); // Wrap BulkInsert in Task.Run for async execution.  
+                await _context.AddRangeAsync(mapped);
+                await _context.SaveChangesAsync();
 
                 return $"{mapped.Count} records saved successfully for {utility} {district}";
             }
@@ -71,7 +74,7 @@ namespace TNSUIL_ConsoleApp_DataLoader.DLL
 
         }
 
-        public string Ground_Water_Level(List<MappingModel> model, string utility, string district)
+        public async Task<string> Ground_Water_Level(List<MappingModel> model, string utility, string district)
         {
             try
             {
@@ -81,7 +84,8 @@ namespace TNSUIL_ConsoleApp_DataLoader.DLL
                 }
 
                 var mapped = _mapper.Map<List<GroundWaterLevel>>(model);
-                _context.BulkInsert(mapped); // Wrap BulkInsert in Task.Run for async execution.  
+                await _context.AddRangeAsync(mapped);
+                await _context.SaveChangesAsync();
 
                 return $"{mapped.Count} records saved successfully for {utility} {district}";
             }
@@ -93,7 +97,7 @@ namespace TNSUIL_ConsoleApp_DataLoader.DLL
 
         }
 
-        public string RainFall(List<MappingModel> model, string utility, string district)
+        public async Task<string> RainFall(List<MappingModel> model, string utility, string district)
         {
             try
             {
@@ -103,7 +107,8 @@ namespace TNSUIL_ConsoleApp_DataLoader.DLL
                 }
 
                 var mapped = _mapper.Map<List<RainFall>>(model);
-                _context.BulkInsert(mapped); // Wrap BulkInsert in Task.Run for async execution.  
+                await _context.AddRangeAsync(mapped);
+                await _context.SaveChangesAsync();
 
                 return $"{mapped.Count} records saved successfully for {utility} {district}";
             }
@@ -115,7 +120,7 @@ namespace TNSUIL_ConsoleApp_DataLoader.DLL
 
         }
 
-        public string Relative_Humidity(List<MappingModel> model, string utility, string district)
+        public async Task<string> Relative_Humidity(List<MappingModel> model, string utility, string district)
         {
             try
             {
@@ -125,7 +130,8 @@ namespace TNSUIL_ConsoleApp_DataLoader.DLL
                 }
 
                 var mapped = _mapper.Map<List<RelativeHumidity>>(model);
-                _context.BulkInsert(mapped); // Wrap BulkInsert in Task.Run for async execution.  
+                await _context.AddRangeAsync(mapped);
+                await _context.SaveChangesAsync();
 
                 return $"{mapped.Count} records saved successfully for {utility} {district}";
             }
@@ -137,7 +143,7 @@ namespace TNSUIL_ConsoleApp_DataLoader.DLL
 
         }
 
-        public string Reservoir(List<MappingModel> model, string utility, string district)
+        public async Task<string> Reservoir(List<MappingModel> model, string utility, string district)
         {
             try
             {
@@ -147,7 +153,8 @@ namespace TNSUIL_ConsoleApp_DataLoader.DLL
                 }
 
                 var mapped = _mapper.Map<List<Reservoir>>(model);
-                _context.BulkInsert(mapped); // Wrap BulkInsert in Task.Run for async execution.  
+                await _context.AddRangeAsync(mapped);
+                await _context.SaveChangesAsync();
 
                 return $"{mapped.Count} records saved successfully for {utility} {district}";
             }
@@ -159,7 +166,7 @@ namespace TNSUIL_ConsoleApp_DataLoader.DLL
 
         }
 
-        public string River_Water_Discharge(List<MappingModel> model, string utility, string district)
+        public async Task<string> River_Water_Discharge(List<MappingModel> model, string utility, string district)
         {
             try
             {
@@ -169,8 +176,8 @@ namespace TNSUIL_ConsoleApp_DataLoader.DLL
                 }
 
                 var mapped = _mapper.Map<List<RiverWaterDischarge>>(model);
-                _context.BulkInsert(mapped); // Wrap BulkInsert in Task.Run for async execution.  
-
+                await _context.AddRangeAsync(mapped);
+                await _context.SaveChangesAsync();
                 return $"{mapped.Count} records saved successfully for {utility} {district}";
             }
             catch (Exception ex)
@@ -180,7 +187,7 @@ namespace TNSUIL_ConsoleApp_DataLoader.DLL
             }
 
         }
-        public string River_Water_Level(List<MappingModel> model, string utility, string district)
+        public async Task<string> River_Water_Level(List<MappingModel> model, string utility, string district)
         {
             try
             {
@@ -190,7 +197,8 @@ namespace TNSUIL_ConsoleApp_DataLoader.DLL
                 }
 
                 var mapped = _mapper.Map<List<RiverWaterLevel>>(model);
-                _context.BulkInsert(mapped); // Wrap BulkInsert in Task.Run for async execution.  
+                await _context.AddRangeAsync(mapped);
+                await _context.SaveChangesAsync();
 
                 return $"{mapped.Count} records saved successfully for {utility} {district}";
             }
@@ -202,7 +210,7 @@ namespace TNSUIL_ConsoleApp_DataLoader.DLL
 
         }
 
-        public string Soil_Moisture(List<MappingModel> model, string utility, string district)
+        public async Task<string> Soil_Moisture(List<MappingModel> model, string utility, string district)
         {
             try
             {
@@ -212,7 +220,8 @@ namespace TNSUIL_ConsoleApp_DataLoader.DLL
                 }
 
                 var mapped = _mapper.Map<List<SoilMoisture>>(model);
-                _context.BulkInsert(mapped); // Wrap BulkInsert in Task.Run for async execution.  
+                await _context.AddRangeAsync(mapped);
+                await _context.SaveChangesAsync();
 
                 return $"{mapped.Count} records saved successfully for {utility} {district}";
             }
@@ -224,7 +233,7 @@ namespace TNSUIL_ConsoleApp_DataLoader.DLL
 
         }
 
-        public string Solar_Radiation(List<MappingModel> model, string utility, string district)
+        public async Task<string> Solar_Radiation(List<MappingModel> model, string utility, string district)
         {
             try
             {
@@ -234,8 +243,8 @@ namespace TNSUIL_ConsoleApp_DataLoader.DLL
                 }
 
                 var mapped = _mapper.Map<List<SoilMoisture>>(model);
-                _context.BulkInsert(mapped); // Wrap BulkInsert in Task.Run for async execution.  
-
+                await _context.AddRangeAsync(mapped);
+                await _context.SaveChangesAsync();
                 return $"{mapped.Count} records saved successfully for {utility} {district}";
             }
             catch (Exception ex)
@@ -246,7 +255,7 @@ namespace TNSUIL_ConsoleApp_DataLoader.DLL
 
         }
 
-        public string Suspended_Sediment(List<MappingModel> model, string utility, string district)
+        public async Task<string> Suspended_Sediment(List<MappingModel> model, string utility, string district)
         {
             try
             {
@@ -256,7 +265,8 @@ namespace TNSUIL_ConsoleApp_DataLoader.DLL
                 }
 
                 var mapped = _mapper.Map<List<Suspended_Sediment>>(model);
-                _context.BulkInsert(mapped); // Wrap BulkInsert in Task.Run for async execution.  
+                await _context.AddRangeAsync(mapped);
+                await _context.SaveChangesAsync();
 
                 return $"{mapped.Count} records saved successfully for {utility} {district}";
             }
@@ -268,7 +278,7 @@ namespace TNSUIL_ConsoleApp_DataLoader.DLL
 
         }
 
-        public string Temperature(List<MappingModel> model, string utility, string district)
+        public async Task<string> Temperature(List<TempData> model, string stationCode, string district)
         {
             try
             {
@@ -277,10 +287,16 @@ namespace TNSUIL_ConsoleApp_DataLoader.DLL
                     return "No records to save.";
                 }
 
-                var mapped = _mapper.Map<List<Temperature>>(model);
-                _context.BulkInsert(mapped); // Wrap BulkInsert in Task.Run for async execution.  
+                var mapped = _mapper.Map<List<Temperature>>(model, opt =>
+                {
+                    opt.Items["StationCode"] = stationCode;
+                    opt.Items["District"] = district;
+                });
+                await _context.AddRangeAsync(mapped);
+                await _context.SaveChangesAsync();
 
-                return $"{mapped.Count} records saved successfully for {utility} {district}";
+
+                return $"{mapped.Count} records saved successfully for {stationCode} {district}";
             }
             catch (Exception ex)
             {
@@ -290,7 +306,7 @@ namespace TNSUIL_ConsoleApp_DataLoader.DLL
 
         }
 
-        public string Wind_Direction(List<MappingModel> model, string utility, string district)
+        public async Task<string> Wind_Direction(List<MappingModel> model, string utility, string district)
         {
             try
             {
@@ -300,7 +316,8 @@ namespace TNSUIL_ConsoleApp_DataLoader.DLL
                 }
 
                 var mapped = _mapper.Map<List<WindDirection>>(model);
-                _context.BulkInsert(mapped); // Wrap BulkInsert in Task.Run for async execution.  
+                await _context.AddRangeAsync(mapped);
+                await _context.SaveChangesAsync();
 
                 return $"{mapped.Count} records saved successfully for {utility} {district}";
             }

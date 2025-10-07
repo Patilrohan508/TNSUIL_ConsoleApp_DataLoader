@@ -1,11 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace TNSUIL_ConsoleApp_DataLoader.Models
 {
+    //[Table("river_water_discharge", Schema = "public")]
+
     public class RiverWaterDischarge
     {
         public int Id { get; set; }

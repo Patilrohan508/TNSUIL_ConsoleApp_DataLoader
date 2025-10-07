@@ -19,7 +19,7 @@ namespace TNSUIL_ConsoleApp_DataLoader.BLL
         public Task<string> Soil_Moisture(string url, string utility, string district);
         public Task<string> Solar_Radiation(string url, string utility, string district);
         public Task<string> Suspended_Sediment(string url, string utility, string district);
-        public Task<string> Temperature(string url, string utility, string district);
+        public Task<string> Temperature(StationRequest requestObj);
         public Task<string> Wind_Direction(string url, string utility, string district);
     }
 }
